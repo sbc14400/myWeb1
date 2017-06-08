@@ -1,26 +1,70 @@
+{% load staticfiles %}
+
 <html>
 <head>
-    <title>myweb.Blog</title>
+  <title>myweb.Blog</title>
+  <!-- css(bootstrap, staticfile, google-font) -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <div>
-        <h1><a href="">Django Girls Blog</a></h1>
+    <div class="page-header">
+        <h1><a href="">myWeb.Blog (listed in admin)</a></h1>
     </div>
 
-    {% for post in posts %}
+    <hr>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for post in posts %}
+                    <div class="post">
+
+                        <h1><a href="">{{ post.title }}</a></h1>
+                        <div class="date">
+                          <p>created: {{ post.created_date }}</p>
+                          <p>published: {{ post.published_date }}</p>
+                        </div>
+                        <p>{{ post.text|linebreaksbr }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div id="divTable1">
+      <table id="Table1">
+        <tr>
+          <td>title</td>
+          <td>published_date</td>
+          <td>created_date</td>
+          <td>text</td>
+        </tr>
+        {% for post in posts %}
+        <tr>
+          <td class="cls_td1"><a href="">{{ post.title }}</a></td>
+          <td>{{ post.published_date }}</td>
+          <td>{{ post.created_date }}</td>
+          <td>{{ post.text }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div> -->
+
+
+    <!-- {% for post in posts %}
     <div>
       <h3><a href="">{{ post.title }}</a></h3>
       <p>published: {{ post.published_date}}</p>
       <p>created_date: {{ post.created_date}}</p>
       <p>{{ post.text|linebreaksbr}}</p>
     </div>
-    {% endfor %}
-
-    <!-- {% for post in posts %}
-      {{post}}
     {% endfor %} -->
 
-    <!-- {{posts}} -->
 
 </body>
 </html>
