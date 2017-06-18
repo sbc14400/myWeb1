@@ -55,6 +55,12 @@ h1, h2, h3, h4 {
     color: #000000;
 }
 
+
+.clsDevice h1 a, .clsDevice h1 a:visited{
+    color: #000000;
+}
+
+
 /*
 #Table1 tr{
   border-style:solid;

@@ -2,34 +2,38 @@
 
 <html>
 <head>
-  <title>myweb.Blog</title>
-  <!-- css(bootstrap, staticfile, google-font) -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+      <title>myweb.Blog</title>
+      <!-- css(bootstrap, staticfile, google-font) -->
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+      <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  <div class="page-header">
-    {% if user.is_authenticated %}
-      <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-    {% endif %}
-    <h1><a href="/">myWeb.Blog (listed in admin)</a></h1>
-  </div>
+    <div class="page-header">
+        {% if user.is_authenticated %}
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        {% endif %}
+        <h1><a href="/">myWeb.Blog</a></h1>
 
-  <hr>
+        <a href="{% url 'post_devicenew' %}" class="top-menu">New.Device</a>
 
-  <div class="content container">
-    <div class="row">
-      <div class="col-md-8">
-
-        {% block content %}
-        {% endblock %}
-
-      </div>
+        <h1><a href="/post/device/">amst.Device</a></h1>
     </div>
-  </div>
+
+    <hr>
+
+    <div class="content container">
+        <div class="row">
+              <div class="col-md-8">
+
+                {% block content %}
+                {% endblock %}
+
+              </div>
+        </div>
+    </div>
 
 </body>
 </html>

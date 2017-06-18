@@ -1,0 +1,20 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for device in devices %}
+        <div class="post">
+
+            <h1><a href="{% url 'post_devicedetail' pk=device.pk %}">{{ device.DeviceID }}</a></h1>
+            <div class="date">
+                <p>CustomerProduct: {{ device.CustomerProduct }}</p>
+                <p>Tester: {{ device.Tester }}</p>
+                <p>NoPara: {{ device.NoPara }}</p>
+                <p>ProductType: {{ device.ProductType }}</p>
+                <p>InputDate: {{ device.InputDate }}</p>
+                <hr>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

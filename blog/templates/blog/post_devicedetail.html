@@ -1,0 +1,23 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="device">
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'post_deviceedit' pk=device.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
+        <h1><a href="{% url 'post_devicedetail' pk=device.pk %}">{{ device.DeviceID }}</a></h1>
+        <div class="date">
+
+            <p>CustomerProduct: {{ device.CustomerProduct }}</p>
+            <p>Tester: {{ device.Tester }}</p>
+            <p>NoPara: {{ device.NoPara }}</p>
+            <p>ProductType: {{ device.ProductType }}</p>
+            <p>InputDate: {{ device.InputDate }}</p>
+
+
+        </div>
+        <!--<p>{{ device.ProductType|linebreaksbr }}</p>-->
+
+    </div>
+{% endblock %}
