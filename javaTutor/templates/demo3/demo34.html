@@ -1,0 +1,117 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>jQuery API : 속성제어 </h1>
+    <p> run at google inspector</p>
+    <p style="font-weight:bold;color:blue">var t=$('#target'); t.attr();  t.removeAttr() </p>
+    <ul style="font-weight:bold;color:blue"> jQuery 조회범위 제어
+        <li>$('.marked','#active').css('background-color','red');</li>
+        <li>$('#active').find('.marked').css('background-color','blue');</li>
+        <li>$('#active').css('color','blue').find('.marked').css('background-color','red');</li>
+    </ul>
+
+    <a id="target" href="http://opentutorials.org">opentutorials</a>
+    <input type="checkbox" id="t2" checked="checked"> (id:t2)
+    <ul>
+        <li class="marked">html</li>
+        <li>css</li>
+        <li id="active" >JavaScript (id:active)
+            <ul>
+                <li>javaScript Core</li>
+                <li class="marked">DOM (class:marked)</li>
+                <li class="marked">BOM (class:marked)</li>
+            </ul>
+
+    </ul>
+
+    <input type="button" value="Element API" onclick="controlAttribute()" />
+    <input type="button" value="title set" onclick="fun_setTitle()" />
+    <input type="button" value="title remove" onclick="fun_remTitle()" />
+    <input type="button" value="set Class to checkbox" onclick="fun_setClass('clsTemp');" />
+    <input type="button" value="reset Class of checkbox" onclick="fun_resetClass();" />
+    <input type="button" value="checkbox checked" onclick="fun_checkTrue();" />
+    <input type="button" value="checkbox unchecked" onclick="fun_checkFalse();" />
+
+    <hr>
+    <p>jQuery 조회범위 제어</p>
+    <input type="button" value="selector context" onclick="fun_selectorcontext()" />
+    <input type="button" value="selector find" onclick="fun_find()" />
+    <input type="button" value="selector double" onclick="fun_double()" />
+
+    <hr>
+    <div id="texthere" style="font-weight:bold;color:blue"></div>
+
+    <script>
+
+        var t=$('#target');
+        var t2=$('#t2');
+
+        function fun_checkTrue(){
+            t2.prop('checked', true);
+            $('#texthere').html(t2.attr('id') + " object's checked to true");
+        }
+
+        function fun_checkFalse(){
+            t2.attr('checked', false);
+            $('#texthere').html(t2.attr('id') + " object's checked to false");
+        }
+
+
+        function fun_setClass(classname){
+            t2.attr('class',classname);
+            $('#texthere').html(t2.attr('id') + " object's classname changed to '" + classname +"'");
+        }
+
+        function fun_resetClass(){
+            t2.removeAttr('class');
+            $('#texthere').html(t2.attr('id') + " object's classname removed by .removeAttr");
+        }
+
+
+        function fun_setTitle(){
+            t.attr('title','opentutorial');
+            $('#texthere').html(t.attr('id') + " object's title changed to 'opentutorial'");
+        }
+
+        function fun_remTitle(){
+            t.removeAttr('title');
+            $('#texthere').html(t.attr('id') + " object's title removed");
+        }
+
+
+        function controlAttribute(){
+
+            $('#texthere').html="";
+            var html=[];
+
+            html.push("opentutorials jQuery.attr('href') 속성은 : " + t.attr('href'));
+
+            t.attr('title', 'opentutorials');
+            html.push("opentutorials jQuery.attr('title', 'opentutorials') 후의 .attr 속성은 : " + t.attr('title'));
+            html.push("opentutorials jQuery.attr('title') 속성은 : " + t.attr('title'));
+
+            t.removeAttr('title');
+            html.push("opentutorials jQuery.removeAttr('title') 후의 .attr 속성은 : " + t.attr('title'));
+
+            $('#texthere').html(html.join("<br>"));
+        }
+
+
+        function fun_selectorcontext(){
+            $('.marked','#active').css('background-color','red');
+            $('#texthere').html("class가 marked이며, id가 active인 tag의 background-colr가 red로 변경됨");
+        }
+
+        function fun_find(){
+            $('#active').find('.marked').css('background-color','blue');
+            $('#texthere').html("id가 active인 tag에서 class가 .marked인 것을 찾아(.find) css(background-color,red)적용됨");
+        }
+
+        function fun_double(){
+            $('#active').css('color','blue').find('.marked').css('background-color','red');
+            $('#texthere').html("id가 active이면 css('color', 'blue')적용후, class가 marked 찾아서 css(background-color,red)로 변경됨");
+        }
+
+    </script>
+
+{% endblock %}

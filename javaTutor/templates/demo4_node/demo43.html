@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1>node API </h1>
+
+    <ul style="font-weight:bold;color:blue">
+        <li>node add : .appendChild, .insertBefore</li>
+        <li>node remove : .removeChild, .replaceChild</li>
+    </ul>
+
+<hr>
+    <!--<h1>node add : appendChild, insertBefore</h1>-->
+    <!--<h1>node remove : removeChild, replaceChild</h1>-->
+
+    <ul id="target">
+        <li>HTML</li>
+        <li id="replacetest">CSS</li>
+        <li id="removetest">RemoveTest</li>
+    </ul>
+
+    <input type="button" value="appendChild()" onclick="callAppendChild()" />
+    <input type="button" value="callInsertBefore()" onclick="callInsertBefore()" />
+    <input type="button" value="removeChild()" onclick="callRemoveChild()" />
+    <input type="button" value="replaceChild()" onclick="callReplaceChild()" />
+
+    <script>
+        function callAppendChild(){
+            var target=document.getElementById('target');
+            var li=document.createElement('li');
+            var text=document.createTextNode('JavaScript');
+            li.appendChild(text);
+            target.appendChild(li);
+            li.setAttribute('id','removetest');
+        }
+
+        function callInsertBefore(){
+            var target=document.getElementById('target');
+            var li=document.createElement('li');
+            var text=document.createTextNode('JavaScript');
+            li.appendChild(text);
+            target.insertBefore(li, target.firstChild);
+            li.setAttribute('id','replacetest');
+        }
+
+        function callRemoveChild(){
+            var target=document.getElementById('removetest');
+            target.parentNode.removeChild(target);
+        }
+
+        function callReplaceChild(){
+            var a = document.createElement('a');
+            a.setAttribute('href', 'http://opentutorials.org/module/904/6701');
+            a.appendChild(document.createTextNode('Web browser JavaScript'));
+
+            var target = document.getElementById('replacetest');
+            target.replaceChild(a,target.firstChild);
+        }
+
+    </script>
+
+{% endblock %}

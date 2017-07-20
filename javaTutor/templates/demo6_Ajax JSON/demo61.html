@@ -1,0 +1,71 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+
+    <h2>Ajax</h2>
+
+    <ul>
+        <li>Ajax : asynchronous javascript and XML
+            <ol>
+                <li>비동적으로 js를 이용해서 서버와 통신하는 방식</li>
+                <li>동기적 : 어떤 작업을 하는 동안에 아무것도 못하는 상태</li>
+                <li>서버가 있어야 가능</li>
+            </ol>
+        </li>
+        <li>XMLHttpRequest : GET 방식 </li>
+            <p>
+                document.querySelector('input').addEventListener('click', function(event){
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', './time.php');
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        document.querySelector('#time').innerHTML = xhr.responseText;
+                    }
+                }
+                xhr.send();
+            });
+            </p>
+        <li>XMLHttpRequest : POST 방식</li>
+            <p>
+                document.querySelector('input').addEventListener('click', function(event){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', './time2.php');
+                    xhr.onreadystatechange = function(){
+                        document.querySelector('#time').innerHTML = xhr.responseText;
+                    }
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    var data = '';
+                    data += 'timezone='+document.getElementById('timezone').value;
+                    data += '&format='+document.getElementById('format').value;
+                    xhr.send(data);
+                });
+            </p>
+        <li>.php file : django에서는 python file을 사용한다.</li>
+            <p>
+                < ?php
+                    $d1 = new DateTime;
+                    $d1->setTimezone(new DateTimezone($_POST['timezone']));
+                    echo $d1->format($_POST['format']);
+                ?>
+            </p>
+    </ul>
+
+    <hr>
+
+
+    <p>time : <span id="time"></span></p>
+    <input type="button" id="execute" value="execute" />
+    <script>
+        document.querySelector('input').addEventListener('click', function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './time.php');
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    document.querySelector('#time').innerHTML = xhr.responseText;
+                }
+            }
+            xhr.send();
+        });
+    </script>
+{% endblock %}

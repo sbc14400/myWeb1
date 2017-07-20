@@ -1,0 +1,78 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div id="start">
+
+    <h1>node API : 관계 API </h1>
+    <ul style="font-weight:bold;color:blue">
+        <li>.childNodes .firstChild  .lastChild  .nextSibling  .previousSibling  .parentNode</li>
+        <li>.nodeType   .nodeName</li>
+    </ul>
+
+    <ol>
+        <li><a href="./532">html</a></li>
+        <li><a href="./533">css</a></li>
+        <li><a href="./534">JavaScript</a>
+            <ul>
+                <li><a href="./535">JavaScript Core</a></li>
+                <li><a href="./536">DOM</a></li>
+                <li><a href="./537">BOM</a></li>
+            </ul>
+        </li>
+    </ol>
+
+    <hr>
+    <div>
+        <input type="button" value="node test(console)" onclick="fun_node()" />
+    </div>
+    <div>
+        <input type="button" value="childNodes(console)" onclick="fun_childnodes_console()" />
+        <input type="button" value="childNodes(Below)" onclick="fun_childnodes()" />
+    </div>
+
+    <hr>
+    <div id="texthere"></div>
+
+    <script>
+
+        function fun_node(){
+            var s = document.getElementById('start');
+            console.log(1, s.firstChild); // #text
+            var ul = s.firstChild.nextSibling
+            console.log(2, ul); // ul
+            console.log(3, ul.nextSibling); // #text
+            console.log(4, ul.nextSibling.nextSibling); // script
+            console.log(5, ul.childNodes); //text, li, text, li, text, li, text
+            console.log(6, ul.childNodes[1]); // li(html)
+            console.log(7, ul.parentNode); // body
+        }
+
+        function fun_childnodes_console(){
+            var s = document.getElementById('start');
+            for(var i=0;i<s.childNodes.length;i++){
+                console.log(i, s.childNodes[i].nodeName);
+                console.log(s.childNodes[i].nodeType, s.childNodes[i]);
+            }
+        }
+
+        function fun_childnodes(){
+            var html=["for each childnode"];
+            html.push("number / nodeName");
+            html.push("nodeType / nodeContent");
+            html.push("<br>");
+
+            var s = document.getElementById('start');
+            for(var i=0;i<s.childNodes.length;i++){
+                html.push(i + "  " + s.childNodes[i].nodeName);
+                html.push(s.childNodes[i].nodeType + "  " + s.childNodes[i]);
+                html.push("<br>");
+            }
+            $('#texthere').html(html.join("<br>"));
+        }
+
+    </script>
+
+</div>
+
+{% endblock %}

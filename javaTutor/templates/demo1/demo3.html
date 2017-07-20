@@ -1,0 +1,92 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<body>
+
+    <div>
+        <input type="button" value="alert" onclick="alert('hello world')" />
+        simple alert(hello world)
+    </div>
+
+    <div>
+        <input type="button" value="confirm" onclick="func_confirm()" />
+        msgbox 사용
+    </div>
+    <div>
+        <input type="button" value="prompt" onclick="func_prompt()" />
+        프로프트를 입력받아서 alert 하기
+    </div>
+
+    <div>
+        <input type="button" value="console_location" onclick="func_location()" />
+        console.log 활용 (window.location 정보)
+    </div>
+
+    <div>
+        <input type="button" value="location redirect" onclick="func_movelocation()" />
+        location redirect
+    </div>
+
+    <div>
+        <input type="button" value="location reload" onclick="func_reloadlocation()" />
+        location reload
+    </div>
+
+    <div>
+        <input type="button" value="console.dir_navigator" onclick="func_navigator()" />
+        console.dir 활용 (cross browsing issue : navivagor 정보)
+    </div>
+
+    <script>
+        function func_confirm(){
+            if(confirm('OK?')){
+                console.log('ok');
+                alert('ok, please check console.log');
+            } else {
+                console.log('cancel');
+                alert('cancel, please check console.log');
+            }
+        }
+
+        function func_prompt(){
+            if(prompt('id?') === 'sbc'){
+                alert('welcome');
+                console.log('welcome, prompt pass');
+            } else {
+                alert('not sbc, fail');
+                console.log('not sbc, prompt fail');
+            }
+        }
+
+        function func_location(){
+            alert(location);
+            console.log(location);
+            console.log("url:" + location.href);
+            console.log("protocol:" + location.protocol);
+            console.log("host:" + location.host);
+            console.log("port:" + location.port);
+            console.log("pathname:" + location.pathname);
+            console.log("search:" + location.search);
+        }
+
+        function func_movelocation(){
+            location.href = 'http://egoing.net';
+        }
+
+        function func_reloadlocation(){
+            location.reload();
+            alert('reloaded');
+        }
+
+        function func_navigator(){
+            console.dir(navigator);
+            console.log(navigator.appName);
+            console.log(navigator.platform);
+            console.log(navigator.userAgent);
+            console.log(navigator.appVersion);
+        }
+
+    </script>
+</body>
+{% endblock %}

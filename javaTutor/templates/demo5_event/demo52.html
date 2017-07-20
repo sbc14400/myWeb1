@@ -1,0 +1,68 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <style>
+        #outer2{border:5px solid red;padding:30px;}
+        #outer1{border:5px solid green;padding:30px;}
+        fieldset{border:5px solid blue;padding:30px;}
+        #target{border:5px solid black;padding:30px;}
+    </style>
+
+    <h3>Event 전파</h3>
+    <ul>
+        <li>bubbling(capturing false or null)</li>
+        <li>capturing(capturing:true)</li>
+        <li>stopPropagation</li>
+    </ul>
+    <div id="outer2">div:outer2
+        <div id="outer1">div:outer1
+            <fieldset> fieldset
+                <legend>event propagation</legend>
+                <input type="button" id="target" value="target">
+            </fieldset>
+        </div>
+    </div>
+
+    <hr>
+    <input type="button" value="reset texthere" onclick="$('#texthere').empty()">
+    <div id="texthere"></div>
+
+    <script>
+
+        var texthere = $('#texthere');
+
+        function handler(event){
+            var phases = ['capturing', 'target', 'bubbling']
+            texthere.append(event.target.nodeName + " " + this.nodeName + " " + phases[event.eventPhase-1] + "<br>");
+            console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+        }
+
+        function stophandler(event){
+            var phases = ['capturing', 'target', 'bubbling']
+            texthere.append(event.target.nodeName + " " + this.nodeName + " " + phases[event.eventPhase-1] + "<br>");
+            console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+            event.stopPropagation();
+        }
+
+        <!--capturing : capturing true-->
+        <!--document.getElementById('target').addEventListener('click', handler, true);-->
+        <!--document.querySelector('fieldset').addEventListener('click', handler, true);-->
+        <!--document.querySelector('body').addEventListener('click', handler, true);-->
+        <!--document.querySelector('html').addEventListener('click', handler, true);-->
+
+        <!--bubbling : capturing false or null-->
+        <!--document.getElementById('target').addEventListener('click', handler, false);-->
+        <!--document.querySelector('fieldset').addEventListener('click', handler, false);-->
+        <!--document.querySelector('body').addEventListener('click', handler, false);-->
+        <!--document.querySelector('html').addEventListener('click', handler, false);-->
+
+        <!--stopPropagation : bubbling option시에 작동-->
+        document.getElementById('target').addEventListener('click', handler, false);
+        document.querySelector('fieldset').addEventListener('click', handler, false);
+        document.querySelector('#outer1').addEventListener('click', stophandler, false);
+        document.querySelector('#outer2').addEventListener('click', handler, false);
+
+    </script>
+
+{% endblock %}

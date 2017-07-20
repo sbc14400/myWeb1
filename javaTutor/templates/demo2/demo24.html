@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div><p style="font-size:20px">constructor (DOM)</p>
+        <ul>
+            <li>constructor name return to console.log (ctrl+shift+I and F5)</li>
+            <li>HTMLLiElement, HTMLCollection, HTMLInputElement, HTMLAnchorElement</li>
+                <ol>
+                    <li>HTMLLiElement : document.getElementById('active')</li>
+                    <li>HTMLCollection : document.getElementsByTagName('li') </li>
+                    <li>HTMLInputElement : document.getElementById('button') </li>
+                    <li>HTMLAnchorElement : document.getElementById('anchor') : url</li>
+                </ol>
+            <li>used for DOM programming</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <a id="anchor" href="http://opentutorials.org">opentutorials</a>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+    <input type="button" id="button" value="button" />
+    <script>
+
+        var li=document.getElementById('active');
+        console.log(li.constructor.name);
+
+        var lis=document.getElementsByTagName('li');
+        console.log(lis.constructor.name);
+
+        var target =  document.getElementById('anchor')
+        console.log(target.constructor.name);
+
+        var target =  document.getElementById('button');
+        console.log(target.constructor.name);
+
+    </script>
+
+{% endblock %}

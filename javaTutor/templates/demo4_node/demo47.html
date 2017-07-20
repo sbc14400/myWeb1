@@ -1,0 +1,113 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <style>
+        .geo {
+            border:50px solid #1065e6;
+            padding:50px;
+            margin:50px;
+        }
+        #target{
+            width:100px;
+            height:100px;
+            border:50px solid #1065e6;
+            padding:50px;
+            margin:50px;
+        }
+    </style>
+
+
+    <h3>문서의 기하학적 특징</h3>
+    <p>
+        <ul>
+            <li>SetInterval : 주어진함수를 일정한 간격으로 실행</li>
+            <li>getBoundingClientRect (viewport로 부터 target까지의 좌표data)</li>
+            <li>offsetParent object finding</li>
+            <li>window.pageYOffset</li>
+            <li>scrollTo function</li>
+            <li>screen size, window size</li>
+        </ul>
+    </p>
+
+    <p>
+        scroll
+        <input type="button" value="scroll(0,500)" id="scrollBtn" />
+    </p>
+
+    <div class="geo">
+        <div id="target" class="geo">
+            Coding
+        </div>
+    </div>
+
+    <p>
+        viewport
+        <input type="button" value="startViewPort(alert)" onclick="callViewPort()" />
+        getBoundingClientRect.top : <input type="text" id="RectTop" />
+        pageYOffset : <input type="text" id="pageYoffset" />
+    </p>
+
+    <p>
+        at console
+        <input type="button" value="getBoundingClientRect(alert)" onclick="callBoundingClientRect()" />
+        <input type="button" value="getOffsetParent(alert)" onclick="callOffsetParent()" />
+    </p>
+    <p>
+        by alert
+        <input type="button" value="getClientWH(alert)" onclick="callClientSize()" />
+    </p>
+    <p>
+        size
+        <input type="button" value="getSize(alert)" onclick="callSize()" />
+    </p>
+
+
+
+    <script>
+        var t = document.getElementById('target');
+        var str="";
+
+        function callBoundingClientRect(){
+            console.log(t.getBoundingClientRect());
+            str = ""
+            str += 'getBoundingClientRect.top : '  + t.getBoundingClientRect().top + "\r";
+            str += 'getBoundingClientRect.bottom : '  + t.getBoundingClientRect().bottom + "\r";
+            str += 'getBoundingClientRect.left : '  + t.getBoundingClientRect().left + "\r";
+            str += 'getBoundingClientRect.width : '  + t.getBoundingClientRect().width + "\r";
+            alert(str);
+        }
+
+        function callOffsetParent(){
+            alert('offsetParent object : ' + t.offsetParent);
+        }
+
+        function callClientSize(){
+            alert('client width : ' + t.clientWidth + ', client height : ' + t.clientHeight);
+        }
+
+        function callViewPort(){
+            var textTop=document.getElementById('RectTop');
+            var pageYoffset=document.getElementById('pageYoffset')
+            setInterval(function(){
+                textTop.value=t.getBoundingClientRect().top;
+                pageYoffset.value=window.pageYOffset;
+                console.log(t.getBoundingClientRect().top);
+                console.log(window.pageYOffset);
+            }, 1000)
+        }
+
+        document.getElementById('scrollBtn').addEventListener('click', function(){
+            window.scrollTo(0,500);
+        })
+
+        function callSize(){
+            str = ""
+            str += 'screen size (width, height) : '  + screen.width + "," + screen.height + "\r";
+            str += 'window size (width, height) : '  + window.innerWidth + "," + window.innerHeight + "\r";
+            alert(str);
+        }
+
+    </script>
+
+{% endblock %}

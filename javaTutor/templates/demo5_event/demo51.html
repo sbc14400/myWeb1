@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h2>Event</h2>
+
+    <ul>
+        <li>this 를 이해해라..</li>
+    </ul>
+    <ul>
+        <li>event target : button, text 등의 control (event가 발생하는 대상)</li>
+        <li>event type : onclick, onchange</li>
+        <li>event handler : event가 발생할때 실행되는 code, function</li>
+    </ul>
+    <ul>
+        <li>inline 방식
+            <ol>
+                <li>: tag안에 event code를 작성</li>
+                <li>onclick="alert()"</li>
+                <li>장점 : 간단</li>
+                <li>단점 : html은 css(설계), js(제어)로 분리하여 정보를 표현하는 것이 방향</li>
+            </ol>
+        </li>
+        <li>property listener 방식
+            <ol>
+                <li>script에 element 객체를 찾아서 event handler 작성</li>
+                <li>t.onclick =  function(event){ }</li>
+            </ol>
+        </li>
+        <li><p style="color:blue">addEventListener 방식</p>
+            <ol>
+                <li>가장 권장, 복수의 Element에 하나의 리스트를 등록해서 재사용가능</li>
+                <li>t2.addEventListener('click', function(event){ });</li>
+                <li style="color:blue">t2.addEventListener('click', fun_name); + switch case</li>
+            </ol>
+        </li>
+    </ul>
+
+    <hr>
+
+    <p><input type="button" onclick="alert(window.location)" value="alert(window.href)" /></p>
+    <p><input type="text" onchange="alert(this.value)" value="change here" /> event handler : onchange</p>
+    <p><input type="button" onclick="alert('Hello world, ' + this.value)" value="inline 방식" /></p>
+    <p><input type="button" id="target" value="property listener 방식"></p>
+    <p><input type="button" id="target2" value="addEventListener 방식"></p>
+    <p>
+        <input type="button" id="target3" value="addEventListener3">
+        <input type="button" id="target4" value="addEventListener4">
+    </p>
+
+    <script>
+        var t=document.getElementById('target');
+        t.onclick =  function(event){
+            alert('Hello world, ' + event.target.value);
+            console.dir(event);
+        }
+
+        var t2=document.getElementById('target2');
+        t2.addEventListener('click', function(event){
+            alert('Hello world, ' + event.target.value);
+        });
+
+        var t3=document.getElementById('target3');
+        var t4=document.getElementById('target4');
+        function btn_listener(event){
+            switch(event.target.id){
+                case 'target3':
+                    alert('target3 selected');
+                    break;
+                case 'target4':
+                    alert('target4 selected');
+                    break;
+            }
+        }
+        t3.addEventListener('click', btn_listener);
+        t4.addEventListener('click', btn_listener);
+
+    </script>
+
+{% endblock %}

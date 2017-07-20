@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1>jQuery API : 조회 API</h1>
+    <p> element를 변수화하고 element 하위의 getElementsByClassName으로 element coding 기능 구현</p>
+    <p> 아래의 html : (class) marked, Javascript : (id) active, DOM : (class) marked, BOM : (class) marked</p>
+    <p style="font-weight:bold;color:blue"> var active = document.getElementById('active');  var list = active.getElementsByClassName('marked'); </p>
+
+    <ul>
+        <li class="marked">html</li>
+        <li>css</li>
+        <li id="active" >JavaScript
+            <ul>
+                <li>javaScript Core</li>
+                <li class="marked">DOM</li>
+                <li class="marked">BOM</li>
+            </ul>
+
+    </ul>
+    <input type="button" value="console.group" onclick="getdata()">
+    <hr>
+
+    <div id="texthere"></div>
+
+    <script>
+
+        function getdata(){
+
+            $('#texthere').html="";
+            var html=[];
+
+            html.push("console.group 'marked'" + "<br>");
+            var list = document.getElementsByClassName('marked');
+            console.group('marked');
+            for(var i=0; i<list.length; i++){
+                html.push(i + " : " + list[i].textContent + "<br>");
+                console.log(list[i].textContent);
+            }
+            console.groupEnd();
+
+
+            html.push("console.group 'active_marked'" + "<br>");
+            console.group('active_marked');
+            var active = document.getElementById('active');
+            var list = active.getElementsByClassName('marked');
+            for(var i=0; i<list.length; i++){
+                html.push(i + " : " + list[i].textContent + "<br>");
+                console.log(list[i].textContent);
+            }
+            console.groupEnd();
+
+            $('#texthere').html(html);
+
+        }
+
+    </script>
+
+{% endblock %}

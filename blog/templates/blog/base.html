@@ -1,39 +1,211 @@
 {% load staticfiles %}
 
+
 <html>
 <head>
-      <title>myweb.Blog</title>
-      <!-- css(bootstrap, staticfile, google-font) -->
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-      <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <title>myweb.Blog</title>
+    <link rel="stylesheet" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <style>
+        .navbar-nav > li:hover > .dropdown-menu {
+          display: block;
+        }
+
+        .dropdown-submenu{position:relative;}
+        .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+        .dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
+        .dropdown-submenu:hover>a:after{border-left-color:red;}
+        .dropdown-submenu:hover .dropdown-menu{display:block;}
+        .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+
+    </style>
+    {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href='{% url "post_list" %}'>HOME</a>
+        </div>
+
+        <!-- Collect the nav links,  forms, and other content for toggling -->
+        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+            <li><a href='{% url "post_pgmnote" %}'>PGM</a></li>
+
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      amst.Device<span class="caret"/>
+                  </a>
+                  <ul class="dropdown-menu">
+                        <li><a href='{% url "post_devicelist" %}'>Device List</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href='{% url "post_devicenew" %}'>Device New</a></li>
+                  </ul>
+            </li>
+
+
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      myWeb.Blog <span class="caret"/>
+                  </a>
+                  <ul class="dropdown-menu">
+                        <li><a href='{% url "post_list" %}'>Post List</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href='{% url "post_new" %}'>Post New</a></li>
+                  </ul>
+            </li>
+
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      myPGM.Tutor <span class="caret"/>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li class="dropdown dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false" aria-haspopup="true" aria-expanded="false">
+                                BOM(Browser Object Model)
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href='{% url "demo1" %}'>BOM(browser object model)</a></li>
+                                <li><a href='{% url "demo2" %}'>BOM-1</a></li>
+                                <li><a href='{% url "demo3" %}'>BOM-2</a></li>
+                                <li><a href='{% url "demo4" %}'>window object</a></li>
+                            </ul>
+                      </li>
+
+                      <li class="dropdown dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false" aria-haspopup="true" aria-expanded="false">
+                                DOM(Document Object Model)
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href='{% url "demo21" %}'>js.DOM-1</a></li>
+                                <li><a href='{% url "demo22" %}'>jQuery-1</a></li>
+                                <li><a href='{% url "demo23" %}'>DOM vs jQuery</a></li>
+                                <li><a href='{% url "demo24" %}'>DOM.constructor</a></li>
+                                <li><a href='{% url "demo25" %}'>DOM.object.delete</a></li>
+                                <li><a href='{% url "demo26" %}'>jQuery.API</a></li>
+                                <li><a href='{% url "demo27" %}'>jQuery.API.CSS</a></li>
+                                <li><a href='{% url "demo28" %}'>jQuery.API.Text|Mouse</a></li>
+                                <li><a href='{% url "demo31" %}'>jQuery.API.식별자</a></li>
+                                <li><a href='{% url "demo32" %}'>jQuery.API.식별자2</a></li>
+                                <li><a href='{% url "demo33" %}'>jQuery.API.Attribute</a></li>
+                                <li><a href='{% url "demo34" %}'>jQuery.API.attr</a></li>
+                            </ul>
+                      </li>
+
+                      <li class="dropdown dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false" aria-haspopup="true" aria-expanded="false">
+                                node object
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href='{% url "demo41" %}'>Node.js|관계API</a></li>
+                                <li><a href='{% url "demo42" %}'>재귀함수|callback function</a></li>
+                                <li><a href='{% url "demo43" %}'>Node.js|control.child</a></li>
+                                <li><a href='{% url "demo44" %}'>Node.jQuery</a></li>
+                                <li><a href='{% url "demo45" %}'>TextObject-1</a></li>
+                                <li><a href='{% url "demo46" %}'>TextObject-2</a></li>
+                                <li><a href='{% url "demo47" %}'>Geometric Properties</a></li>
+                            </ul>
+                      </li>
+
+                      <li class="dropdown dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false" aria-haspopup="true" aria-expanded="false">
+                                event
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href='{% url "demo51" %}'>Event 등록</a></li>
+                                <li><a href='{% url "demo52" %}'>Event 전파</a></li>
+                                <li><a href='{% url "demo53" %}'>Event 제어/취소</a></li>
+                                <li><a href='{% url "demo54" %}'>Event : Form제어</a></li>
+                                <li><a href='{% url "demo55" %}'>Event : Document제어</a></li>
+                                <li><a href='{% url "demo56" %}'>Event : Mouse제어</a></li>
+                                <li><a href='{% url "demo57" %}'>Event : jQuery(***)</a></li>
+                            </ul>
+                      </li>
+
+                      <li class="dropdown dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false" aria-haspopup="true" aria-expanded="false">
+                                AJAX JSON
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href='{% url "demo61" %}'>XMLHttpRequest</a></li>
+                                <li><a href='{% url "demo62" %}'>GET,POST,Ajax,Form</a></li>
+                            </ul>
+                      </li>
+
+                        <li role="separator" class="divider"></li>
+                  </ul>
+
+            </li>
+
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
     <div class="page-header">
         {% if user.is_authenticated %}
             <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
         {% endif %}
-        <h1><a href="/">myWeb.Blog</a></h1>
+        <!--<h1><a href="/">myWeb.Blog</a></h1>-->
+        <!--<a href="{% url 'post_devicenew' %}" class="top-menu">New.Device</a>-->
 
-        <a href="{% url 'post_devicenew' %}" class="top-menu">New.Device</a>
-
-        <h1><a href="/post/device/">amst.Device</a></h1>
+        <!--<h1><a href="/post/device/">amst.Device</a></h1>-->
     </div>
 
     <hr>
 
-    <div class="content container">
-        <div class="row">
-              <div class="col-md-8">
+    <div class="content container" style="padding-top:40px">
+        <!--<div class="row">-->
+              <!--<div class="col-md-10">-->
 
                 {% block content %}
                 {% endblock %}
 
-              </div>
-        </div>
+              <!--</div>-->
+        <!--</div>-->
     </div>
+
+    <!--<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>-->
+    <!--<script src="{% static 'js/app.js' %}"></script>-->
+    {% block javascript %}{% endblock %}
 
 </body>
 </html>

@@ -1,0 +1,66 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h2>Event : Form</h2>
+
+    <ul>
+        <li>submit event : form 내용 전달기능</li>
+        <li>validation 기능을 위해 중요</li>
+    </ul>
+
+    <ol style="color:blue;"> event type (var t2=document.getElementById('target2');)
+        <li>submit :t2.addEventListener('submit', function(event){... event.preventDefault() .. }</li>
+        <li>change : t2.addEventListener('change', function(event){... .innerHTML =  event.target.value;.. }</li>
+        <li>focus : t2.addEventListener('focus', function(event){.... text 내용을 reset하고 준비한다.}</li>
+        <li>blur : t2.addEventListener('blur', function(event){.... text 내용을 파악하여 lebel을 작성한다.}</li>
+    </ol>
+    <hr>
+
+    <form action='{% url "demo53" %}' id="tgForm">
+        <label for="name">name</label>
+        <input type="text" id="name" />
+        <input type="submit" value="name에 문자가 있을때 demo53.html로 이동" />
+    </form>
+
+    <hr>
+    <p id="result"></p>
+    (id=target2) <input type="text" id="target2" /><label for="target2" id="lbltg2"></label>
+
+    <hr>
+
+
+    <script>
+        var t=document.getElementById('tgForm');
+        var t2=document.getElementById('target2');
+        var result=document.getElementById('result');
+        var t2label=document.getElementById('lbltg2');
+
+        t.addEventListener('submit', function(event){
+            if(document.getElementById('name').value.length == 0 ){
+                alert('No string in Name file');
+                event.preventDefault();
+            }
+        });
+
+
+        t2.addEventListener('change', function(event){
+            result.innerHTML =  event.target.value;
+        });
+
+        t2.addEventListener('blur', function(event){
+            console.log('blur');
+            if(this.value.length == 0 ){
+                t2label.innerHTML = "  * no string";
+            } else {
+                t2label.innerHTML = "";
+            }
+        });
+
+        t2.addEventListener('focus', function(event){
+            this.value = "";
+        });
+
+    </script>
+{% endblock %}

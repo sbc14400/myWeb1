@@ -1,0 +1,28 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+<ul> <p style="font-size:20px">jQuery</p>
+    <li>CDN을 찾아서 text로 입력한다.</li>
+    <li>.min은 압축파일이다. 용량을 줄일수 있다.</li>
+    <li>jQuery 문법 : 함수시작, element, 객체, method, method인자</li>
+    <li><'script src="//code.jquery.com/jquery-3.2.1.min.js" /script'></li
+</ul>
+
+<hr>
+
+<div>$('#prependHere').prepend('Hello World');</div>
+
+<hr>
+
+<div id="prependHere"></div>
+
+<script>
+    jQuery(document).ready(function($){
+        $('#prependHere').prepend('<h1>Hello World</h1>');
+    });
+</script>
+
+{% endblock %}

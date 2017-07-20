@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h2>Event 동작 취소</h2>
+
+    <ul>
+        <li>inline 방식 : onclick="if(document.getElementById('prevent').checked) return false;</li>
+        <li>property  방식 : document.querySelector('a').onclick = function(event){...  return false  ... }</li>
+        <li>addEventListener  방식 : document.querySelector('form').addEventListener('submit', function(event){... event.preventDefault() .. }</li>
+        <li>하단의 checkbox를 check하면 prevent event를 수행한다.</li>
+    </ul>
+
+    <hr>
+
+    <p>
+        <label>prevent event on</label>
+        <input id="prevent" type="checkbox" name="eventprevent" checked="true" />
+    </p>
+
+
+    <p>
+        <a href="http://opentutorials.org" id="target1">opentutorials</a>
+    </p>
+
+    <hr>
+    <form id="frm1" action="http://opentutorials.org" >
+                <input type="submit" value="opentutorials로 이동(if prevent not)"/>
+    </form>
+
+    <hr>
+    <p>
+        <a href="http://www.google.co.kr" onclick="if(document.getElementById('prevent').checked) return false;">google</a>
+    </p>
+
+    <script>
+        document.getElementById('target1').addEventListener('click', function(event){
+            if(document.getElementById('prevent').checked)
+                event.preventDefault();
+                return false;
+        });
+
+        var t=document.getElementById('frm1');
+        t.addEventListener('submit', function(event){
+            if(document.getElementById('prevent').checked){
+                event.preventDefault();
+            }
+        });
+
+    </script>
+{% endblock %}

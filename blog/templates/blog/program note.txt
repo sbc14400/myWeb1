@@ -1,0 +1,32 @@
+    <!--{% bootstrap_css %}-->
+    <!--{% bootstrap_javascript %}-->
+    <!--{% bootstrap_messages %}-->
+
+
+    {% load bootstrap3 %}
+
+
+
+
+bootstrap script setup시에 jquery나 jquery.min
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>-->
+    <!--<script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>-->
+    <!--<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>-->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--<script src="{% static 'bootstrap/js/jquery.js' %}"></script>-->
+    <!--<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>-->
+
+
+
+    <ul style="font-size:13px">
+        <li>initialize event</li>
+        <li>data option on 2nd td</li>
+        <li>bootstrap menu item</li>
+        <li>application for PGM note</li>
+        <li>picture bone</li>
+        <li>DUT data chart and option</li>
+        <li>chart option : legend etc</li>
+        <li>delete device by view,model</li>
+    </ul>

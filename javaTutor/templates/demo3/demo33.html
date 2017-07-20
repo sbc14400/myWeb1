@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1>jQuery API : 속성 API (ex. Property Change)</h1>
+    <p style="font-weight:bold;color:blue"> .getAttribute()  .setAttribute()  . removeAttribute()  .hasAttribute() </p>
+    <p> 속성과 프로퍼티의 차이를 이해하자.</p>
+    <p> target.setAttribute('class','important') : 속성방식</p>
+    <p> target.className =  'important' : 프로퍼티방식 </p>
+
+    <a id="target" href="http://opentutorials.org">opentutorials</a>
+    <ul>
+        <li class="marked">html</li>
+        <li>css</li>
+        <li id="active" >JavaScript
+            <ul>
+                <li>javaScript Core</li>
+                <li class="marked">DOM</li>
+                <li class="marked">BOM</li>
+            </ul>
+
+    </ul>
+
+    <input type="button" value="Control Attribute" onclick="controlAttribute();">
+    <hr>
+    <div id="texthere"></div>
+
+    <script>
+
+        function controlAttribute(){
+
+            $('#texthere').html="";
+            var html=[];
+            var t = document.getElementById('target');
+
+            html.push("opentutorials a tag의 .getattribute('href') 속성은 : " + t.getAttribute('href'));
+
+            t.setAttribute('title', 'opentutorials.org'); // title 속성의 값을 설정한다.
+            html.push("opentutorials a tag의 .setAttribute('title', 'opentutorials.org') 후의 .hasAttribute 속성은 : " + t.hasAttribute('title'));
+            html.push("opentutorials a tag의 .getattribute('title') 속성은 : " + t.getAttribute('title'));
+
+            t.removeAttribute('title'); // title 속성을 제거한다.
+            html.push("opentutorials a tag의 .removeAttribute('title') 후의 .hasAttribute 속성은 : " + t.hasAttribute('title'));
+
+            $('#texthere').html(html.join("<br>"));
+        }
+
+    </script>
+
+{% endblock %}

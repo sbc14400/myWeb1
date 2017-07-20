@@ -1,0 +1,71 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+  <style>
+      .clsBox {
+        height: 50px;
+        margin: 5px;
+        padding: 5px;
+        float: left;
+      }
+      #box1 {
+        width: 50px;
+        color: yellow;
+        background-color: blue;
+      }
+      #box2 {
+        width: 80px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(15, 99, 30);
+      }
+      #box3 {
+        width: 40px;
+        color: #fcc;
+        background-color: #123456;
+      }
+      #box4 {
+        width: 70px;
+        background-color: #f11;
+      }
+  </style>
+
+
+<h1> jQuery API, css</h1>
+    <ul>
+        <li>배열에 추가적인 배열을 담는 명령 : 배열변수.push(value)</li>
+        <li>배열에 일괄 항목 추가하기 : 배열변수.join(value)</li>
+        <li>$(..).click(function(){}  : click js 함수</li>
+        <li>$(this).css([,,,,]) : this는 이미 알고 있는 콘트롤, css API </li>
+        <li>$(..).html  : html tag를 표시하는 API</li>
+    </ul>
+
+<hr>
+
+<p id="result">&nbsp;</p>
+<div class="clsBox" id="box1">1</div>
+<div class="clsBox" id="box2">2</div>
+<div class="clsBox" id="box3">3</div>
+<div class="clsBox" id="box4">4</div>
+
+
+
+<script>
+    $( ".clsBox" ).click(function() {
+        var html = [ "The clicked div has the following styles:" ];
+        var styleProps = $( this ).css([
+            "width", "height", "color", "background-color"
+        ]);
+        $.each( styleProps, function( prop, value ) {
+            html.push( prop + ": " + value );
+        });
+
+        console.log(html);
+
+        <!--$( "#result" ).html( html);-->
+        $( "#result" ).html( html.join( "<br>" ) );
+    });
+
+</script>
+
+{% endblock %}

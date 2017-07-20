@@ -1,20 +1,268 @@
 
+
+
+
 {% extends 'blog/base.html' %}
 
-{% block content %}
-    {% for device in devices %}
-        <div class="post">
 
-            <h1><a href="{% url 'post_devicedetail' pk=device.pk %}">{{ device.DeviceID }}</a></h1>
-            <div class="date">
-                <p>CustomerProduct: {{ device.CustomerProduct }}</p>
-                <p>Tester: {{ device.Tester }}</p>
-                <p>NoPara: {{ device.NoPara }}</p>
-                <p>ProductType: {{ device.ProductType }}</p>
-                <p>InputDate: {{ device.InputDate }}</p>
-                <hr>
-            </div>
-        </div>
-    {% endfor %}
+{% block stylesheet %}
+
+    <style>
+
+        .datatable {
+            margin-left:1px;
+        }
+
+        .datatable th, td {
+            border:1px dotted black;
+            font-size:12px;
+        }
+
+        .datatable th{
+            padding-left:10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .datatable td{
+            padding-left:10px;
+            padding-right:10px;
+            padding-top:5px;
+            padding-bottom:5px;
+        }
+
+    </style>
 {% endblock %}
 
+
+
+{% block content %}
+
+    <table style="height:600px;max-height:600px;border:none;">
+        <tr>
+            <td valign="top" style="width:300px;height:600px;border:none;">
+                <p style="font-size:15px;"> Device List</p>
+                <!--<h4> Device List </h4>-->
+                <div style="width:290px;height:600px;overflow-y:scroll;">
+                    {% if devices %}
+                        <table class="datatable">
+                            <tr>
+                                <th>DeviceID</th>
+                                <th>ProductType</th>
+                                <th>InputDate</th>
+                            </tr>
+                            {% for device in devices %}
+                                <tr>
+                                    <td><a  href="#" class="tagDevice" name={{ device.pk}}>{{ device.DeviceID }}</a></td>
+                                    <td>{{ device.ProductType }}</td>
+                                    <td>{{ device.InputDate|date:'Y-m-d' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                </div>
+            </td>
+
+            <td valign="top" style="width:250px;height:600px;border:none;">
+                <p style="font-size:15px;"> Data Option</p>
+                    <p style="font-size:13px;">PAD
+                        <input type="radio" class="padOption" name="gender" style="margin-left:10px" value="noNC" checked> noNC
+                        <input type="radio" class="padOption" name="gender" style="margin-left:5px" value="withNC" > withNC
+                    </p>
+                    <p style="font-size:13px;">DUT
+                        <input type="radio" class="padOption" name="gender" style="margin-left:10px" value="pDUT" > pDUT
+                        <input type="radio" class="padOption" name="gender" style="margin-left:5px" value="tDUT" > tDUT
+                        <input type="radio" class="padOption" name="gender" style="margin-left:5px" value="TRE.DUT" > tre.DUT
+                    </p>
+                <p style="font-size:15px; padding-top:30px;"> Device Information</p>
+                <div id="tblDevice" style="width:250px;height:300px;"></div>
+
+
+            </td>
+
+            <td valign="top" style="width:400px;height:600px;border:none;">
+                <p style="font-size:15px;"> Data Table</p>
+                <div id="tblPad" style="width:400px;height:600px;overflow-y:scroll;overflow-x:scroll;white-space:nowrap;"></div>
+            </td>
+
+            <td valign="top" style="width:600px;height:600px;border:none;">
+                <div id="chartpad" style="width:600px;height:600px;"></div>
+            </td>
+
+        </tr>
+    </table>
+
+{% endblock %}
+
+
+
+{% block javascript %}
+    <script type="text/javascript">
+
+        var pkDevice=0;
+        var DeviceID='';
+        var bolnc = false;
+
+        function set_padinfo(data) {
+
+            var result=JSON.parse(data);
+            //console.log(result)
+
+            var _str='';
+
+            if (result.length != 0) {
+
+                var dict=result[0].fields
+
+                _str += "<table class='datatable'>"
+                _str += "<tr>"
+                $.each(dict, function(key,value){
+                    _str += "<td>" + key + "</td>"
+                });
+                _str += "</tr>"
+
+                for (var i=0;i<result.length;i++){
+                    _str += "<tr>"
+                    var dict=result[i].fields
+
+                    $.each(dict, function(key,value){
+                        _str += "<td><nobr>" + value + "</nobr></td>"
+                    });
+                    _str += "</tr>"
+                }
+            }
+
+            //console.log(_str)
+            document.querySelector('#tblPad').innerHTML = _str
+        }
+
+
+        // TO SET PAD INFO AND PAD CHART
+        function fun_setPad(){
+
+            // TO SET PAD INFO
+            $.ajax({
+                type: 'POST',
+                url: '/post/ajax_paddetail',
+                data: {'DeviceID': DeviceID, 'bolnc':bolnc, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function (data) {
+                    set_padinfo(data)
+                },
+                error: function(xhr, status, e) {
+                    alert(status, e);
+                }
+            });
+
+            // TO SET PAD CHART
+            $.post('/post/ajax_chart_pad', {'DeviceID': DeviceID, 'bolnc':bolnc, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, function (response) {
+                console.log(response);
+                $('#chartpad').highcharts(JSON.parse(response));
+            });
+        }
+
+
+        // TO SET DEVICE INFO
+        function fun_deviceinfo(){
+            $.ajax({
+                type: 'POST',
+                url: '/post/ajax_devicedetail',
+                data: {'pkDevice': pkDevice, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function (data) {
+
+                    var result=JSON.parse(data);
+                    var dict=result[0].fields
+
+                    var _str='';
+                    //_str += "<h4> Device Information </h4>"
+                    _str += "<table class='datatable'>"
+                    _str += "<tr>"
+                        _str += "<td>item</td>"
+                        _str += "<td>value</td>"
+                    _str += "</tr>"
+
+                    $.each(dict, function(key,value){
+                        _str += "<tr>"
+                            _str += "<td>" + key + "</td>"
+                            _str += "<td>" + value + "</td>"
+                        _str += "</tr>"
+                    });
+
+                    _str += "<tr>"
+                        _str += "<td>pk</td>"
+                        _str += "<td>" + result[0].pk + "</td>"
+                    _str += "</tr>"
+
+                    document.querySelector('#tblDevice').innerHTML = _str
+
+                    return true
+
+
+                    <!---->
+                    <!--document.querySelector('#ajaxArea').innerHTML = ""-->
+                    <!--$('#ajaxArea').append("PK : " + result[0].pk + "<br />");-->
+                    <!--$('#ajaxArea').append("DeviceID : " + result[0].fields.DeviceID + "<br />");-->
+                    <!--$('#ajaxArea').append("CustomerProduct : " + result[0].fields.CustomerProduct + "<br />");-->
+                    <!--$('#ajaxArea').append("Tester : " + result[0].fields.Tester + "<br />");-->
+                    <!--$('#ajaxArea').append("NoPara : " + result[0].fields.NoPara + "<br />");-->
+                    <!--$('#ajaxArea').append("InputDate : " + result[0].fields.InputDate + "<br />");-->
+                    <!--$('#ajaxArea').append("ProductType : " + result[0].fields.ProductType+ "<br />");-->
+
+
+                },
+                error: function(xhr, status, e) {
+                    alert(status, e);
+                    return false
+                }
+
+            })
+        }
+
+
+
+        window.onload=function(){
+
+            event.preventDefault();
+            pkDevice=$('.tagDevice')[0].name;
+            DeviceID=$('.tagDevice')[0].innerText;
+
+            fun_deviceinfo();
+            fun_setPad()
+
+        }
+
+
+        $('.tagDevice').click(function(event) {
+
+            event.preventDefault();
+            pkDevice=this.name;
+            DeviceID=this.innerText;
+
+            fun_deviceinfo();
+            fun_setPad()
+
+            <!--if(fun_deviceinfo="true"){-->
+                <!--fun_setPad()-->
+            <!--}-->
+
+        });
+
+
+        $('.padOption').change(function(event) {
+
+            event.preventDefault();
+
+            var padoption = document.querySelector('input[name=gender]:checked').value;
+            if (padoption == "withNC"){bolnc=true;}
+            else { bolnc=false; }
+
+            fun_setPad()
+
+        });
+
+    </script>
+
+    <script src ="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+
+{% endblock %}

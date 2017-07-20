@@ -44,3 +44,16 @@ class Device(models.Model):
 
     def __str__(self):
         return self.DeviceID
+
+
+class PadInfo(models.Model):
+    DeviceID = models.CharField(max_length=10, primary_key=True)
+    RevIF = models.CharField(max_length=10, primary_key=True)
+    PadNo = models.IntegerField(null=False, primary_key=True)
+    PadName = models.CharField(max_length=32)
+    PadX = models.FloatField(null=False)
+    PadY = models.FloatField(null=False)
+    PadSizeX = models.FloatField(null=True)
+    PadSizeY = models.FloatField(null=True)
+    Function = models.CharField(max_length=15)
+    TRE_TYPE = models.CharField(max_length=15)

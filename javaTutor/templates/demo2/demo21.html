@@ -1,0 +1,142 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <ul>
+        <li>HTML</li>
+        <li class="clsCSS">CSS</li>
+        <li id="id_javascript">JavaScript</li>
+    </ul>
+
+    <ol>
+        <li>HTML</li>
+        <li class="clsCSS">CSS</li>
+        <li id="ol_js">JavaScript</li>
+    </ol>
+
+
+    <hr>
+
+    <p> li tag는 navbar에도 존재하므로 tag name으로 구성된 js code는 잘 판독해야한다.</p>
+
+    <hr>
+
+    <div>
+        모든 li를 검정색으로 reset
+        <input type="button" value="reset color" onclick="fun_reset()" />
+    </div>
+
+    <div>
+        ul의 2~3번째 색깔을 붉은 색으로 전환
+        <input type="button" value="byTagName" onclick="fun_red()" />
+    </div>
+
+    <div>
+        ol의 모든 항목의 색깔을 붉은 색으로 전환
+        <input type="button" value="byTagName" onclick="fun_red_ol()" />
+    </div>
+
+    <div>
+        모든 항목의 색깔을 붉은 색으로 전환
+        <input type="button" value="byTagName" onclick="fun_red_all()" />
+    </div>
+
+    <div>
+        ClassName이 clsCSS인 항목의 색깔을 붉은 색으로 전환
+        <input type="button" value="byClassName" onclick="fun_class_css()" />
+    </div>
+
+    <div>
+        id가  id_javascript인 항목의 색깔을 붉은 색으로 전환 (한개만 식별)
+        <input type="button" value="byID" onclick="fun_id_javascript()" />
+    </div>
+
+
+    <div>
+        queryselector/queryselectorAll를 사용하여 BOM 실행 (첫번째 항목만 select)
+        <input type="button" value="byQuerySelector" onclick="fun_qselector()" />
+    </div>
+
+    <div>
+        queryselector/queryselectorAll를 사용하여 BOM 실행 (class가 clsCSS 항목중 한개 선택)
+        <input type="button" value="byQuerySelector" onclick="fun_qselector2()" />
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+
+        function fun_reset(){
+            var lis=document.getElementsByTagName('li');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='black';
+            }
+        }
+
+        function fun_red(){
+            fun_reset();
+            var ul=document.getElementsByTagName('ul')[0];
+            var lis=ul.getElementsByTagName('li');
+            for(var i=1; i < lis.length; i++){
+                lis[i].style.color='red';
+            }
+        }
+
+        function fun_red_ol(){
+            fun_reset();
+            var ol=document.getElementsByTagName('ol')[0];
+            var lis=ol.getElementsByTagName('li');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='red';
+            }
+        }
+
+
+        function fun_red_all(){
+            var lis=document.getElementsByTagName('li');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='red';
+            }
+        }
+
+
+        function fun_class_css(){
+            fun_reset();
+            var lis=document.getElementsByClassName('clsCSS');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='red';
+            }
+        }
+
+        function fun_id_javascript(){
+            fun_reset();
+            var li=document.getElementById('id_javascript');
+            li.style.color='red';
+        }
+
+        function fun_qselector(){
+
+            var lis=document.querySelectorAll('li');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='black';
+            }
+
+            var li=document.querySelector('li');
+            li.style.color='red';
+        }
+
+        function fun_qselector2(){
+
+            var lis=document.querySelectorAll('li');
+            for(var i=0; i<lis.length; i++){
+                lis[i].style.color='black';
+            }
+
+            var li=document.querySelector('.clsCSS');
+            li.style.color='red';
+        }
+
+    </script>
+{% endblock %}

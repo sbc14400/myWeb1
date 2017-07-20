@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'ajx',
+    'javaTutor',
+    'chartit',
+    'highcharts',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

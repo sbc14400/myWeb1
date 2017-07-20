@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1>jQuery객체와 DOM 객체 이해 및 .map method</h1>
+    <p> jQuery함수로 DOM객체를 감싸면 jQuery객체화된다.</p>
+    <p> API : Application Programming Interface (Method, Property의 List)</p>
+    <a href="https://api.jquery.com/">jQuery API : API documentation and examples</a>
+
+    <div style="padding-top:20px"><input type="button" value="change Red" onclick="setRed()"></div>
+
+    <div style="padding-top:20px">
+        <p>var li = $('li');</p>
+        <p>li.map(function(index, elem){
+                console.log(index, elem);
+                $(elem).css('color', 'red');
+            })</p>
+
+    </div>
+
+    <hr>
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+
+    <script>
+        function setRed(){
+            var li = $('li');
+            li.map(function(index, elem){
+                console.log(index, elem);
+                $(elem).css('color', 'red');
+            })
+        }
+    </script>
+
+{% endblock %}

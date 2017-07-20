@@ -1,0 +1,90 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <style>
+        .target{
+            border:solid 1px;
+        }
+    </style>
+
+
+    <h1>문자열로 node 제어 </h1>
+
+    <ul id="target">
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+
+    <hr>
+    .innerHTML
+    <input type="button" value="get" id="btn_get" />
+    <input type="button" value="set" onclick="set();"  />
+    <hr>
+    .outerHTML
+    <input type="button" value="getOuter" id="btn_getOuter" />
+    <input type="button" value="setOuter" onclick="setOuter();"  />
+    <hr>
+    .innerText/.outerText
+    <input type="button" value="getInnerText" id="btn_getInnerText" />
+    <input type="button" value="setInnerText" onclick="setInnerText();"  />
+    <hr>
+    .insertAdjacentHTML
+    <input type="button" onclick="beforebegin();" value="beforebegin" />
+    <input type="button" onclick="afterbegin();" value="afterbegin" />
+    <input type="button" onclick="beforeend();" value="beforeend" />
+    <input type="button" onclick="afterend();" value="afterend" />
+
+    <script>
+
+        $('#btn_get').click(function(){
+            <!--var target=$('#target');-->
+            <!--alert($('#target').innerHTML);       요건 안됨.-->
+            var target=document.getElementById('target');
+            alert(target.innerHTML);
+        })
+
+        function set(){
+            var target=document.getElementById('target');
+            target.innerHTML = "<li>Javascript Core</li><li>BOM</li><li>DOM</li>";
+        }
+
+        $('#btn_getOuter').click(function(){
+            var target=document.getElementById('target');
+            alert(target.outerHTML);
+        })
+
+        function setOuter(){
+            var target=document.getElementById('target');
+            target.innerHTML = "<ol><li>Javascript Core</li><li>BOM</li><li>DOM</li></ol>";
+        }
+
+        $('#btn_getInnerText').click(function(){
+            var target=document.getElementById('target');
+            alert(target.innerText);
+        })
+
+        function setInnerText(){
+            var target=document.getElementById('target');
+            target.innerText = "<li>Javascript Core</li><li>BOM</li><li>DOM</li>";
+        }
+
+        function beforebegin(){
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('beforebegin','<h1>Client Side</h1>');
+        }
+        function afterbegin(){
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('afterbegin','<li>HTML</li>');
+        }
+        function beforeend(){
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('beforeend','<li>JavaScript</li>');
+        }
+        function afterend(){
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('afterend','<h1>Server Side</h1>');
+        }
+    </script>
+
+{% endblock %}

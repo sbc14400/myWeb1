@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <script>
+        <!--window.addEventListener('load', function(){-->
+            <!--var t=document.getElementById('target');-->
+            <!--alert(t.innerHTML);-->
+        <!--})-->
+        window.addEventListener('DOMContentLoaded', function(){
+            var t=document.getElementById('target');
+            var texthere=document.getElementById('texthere');
+            texthere.innerHTML=t.innerHTML + " : .innerHTML written by DOMContentLoaded event";
+        })
+    </script>
+
+    <h2>Event : Document</h2>
+
+    <ul>
+        <li>html의 해독 순서 : top-down (script가 상단(head tag)에 있으면 실행되지 않는다.)</li>
+        <li>script를 불러서 실행하는 경우, head tag에 주로 배치하게 될때 유효한 event handler</li>
+        <li>load event : loading후 실행</li>
+        <li>load : window.addEventListener('load', function(event){...  ... }</li>
+        <li>DOMContentLoaded event : script작업을 할수 있을때 실행 (지루하지 않게된다.)</li>
+        <li>DOMContentLoaded event : window.addEventListener('DOMContentLoaded', function(){  }{</li>
+    </ul>
+
+    <hr>
+    <p id="target">Hello</p>
+    <img src="https://s3-ap-northeast-1.amazonaws.com/opentutorialsfile/course/94.png" />
+
+<hr>
+    <div id="texthere">text here</div>
+
+{% endblock %}

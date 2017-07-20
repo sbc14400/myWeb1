@@ -1,0 +1,84 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <style>
+        .target{
+            border:solid 1px;
+        }
+    </style>
+
+
+    <h1>jQuery : node 변경 API </h1>
+    <ul style="font-weight:bold;color:blue">
+        <li>before:after  prepend:append</li>
+        <li>remove:empty</li>
+        <li>replaceWith:replaceAll</li>
+        <li>clone (node copy)</li>
+        <li>move</li>
+    </ul>
+
+<hr>
+
+    <div class="target" id="target1">
+        content1 (class:target, id:target1)
+    </div>
+
+    <div class="target" id="target2">
+        content2 (class:target, id:target2)
+    </div>
+
+    <div id="source">source(id:source)</div>
+
+    <hr>
+    <input type="button" value="before()" onclick="$('.target').before('<div>before</div>')" />
+    <input type="button" value="after()" onclick="$('.target').after('<div>after</div>')" />
+    <input type="button" value="prepend()" onclick="$('.target').prepend('<div>prepend</div>')" />
+    <input type="button" value="append()" onclick="$('.target').append('<div>append</div>')" />
+    <br>
+    <input type="button" id="btn1" value="remove target1" />
+    <input type="button" id="btn2" value="emtpy target2" />
+    <br>
+    <input type="button" id="btn3" value="replaceAll target1" />
+    <input type="button" id="btn4" value="replaceWith target2" />
+    <br>
+    <input type="button" id="btnclone_all" value="clone source all" />
+    <input type="button" id="btnclone_with" value="clone source with" />
+    <br>
+    <input type="button" id="btn_move" value="move(append, prepend)" />
+
+    <script>
+
+        $('#btn1').click(function(){
+            $('#target1').remove();
+        })
+
+        $('#btn2').click(function(){
+            $('#target2').empty()
+        })
+
+        $('#btn3').click(function(){
+            $('<div>replaceAll</div>').replaceAll('#target1');
+        })
+
+
+        $('#btn4').click(function(){
+            $('#target2').replaceWith('<div>replaceWith</div>');
+        })
+
+        $('#btnclone_all').click(function(){
+            $('#source').clone().replaceAll('#target1');
+        })
+
+        $('#btnclone_with').click(function(){
+            $('#target2').replaceWith($('#source').clone());
+        })
+
+        $('#btn_move').click(function(){
+            $('#target1').append($('#source'));
+        })
+
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1>jQuery API : 식별자 API</h1>
+    <p>식별자(element tag name, id, class) API의 종류</p>
+    <p> getElementbyId, className, classList, </p>
+    <p style="font-weight:bold;color:blue"> active.classList.add('marked'); active.classList.remove('marked'); active.classList.toggle('current'); </p>
+
+    <ul>
+        <li>html</li>
+        <li>css</li>
+        <li id="active" class="important current">JavaScript (id : active, classlist : can be controlled)</li>
+    </ul>
+
+
+    <input type="button" value="DOMTokenList(console)" onclick="consoleList();" />
+    <input type="button" value="조회" onclick="loop();" />
+    <input type="button" value="추가(marked)" onclick="addToken();" />
+    <input type="button" value="제거(marked)" onclick="removeToken();" />
+    <input type="button" value="토글(current)" onclick="toggleToken();" />
+
+    <hr>
+
+    <div id="texthere"></div>
+
+    <script>
+
+
+    function loop(){
+
+        var html = [];
+        for(var i=0; i<active.classList.length; i++){
+            html.push(i + " : " + active.classList[i]);
+        }
+
+        $( "#texthere" ).html( html.join( "<br>" ) );
+        console.log(html);
+        console.log(active.classList);
+
+    }
+
+    function consoleList(){
+        loop();
+    }
+
+
+    function addToken(){
+        active.classList.add('marked');
+        loop();
+    }
+
+    function removeToken(){
+        active.classList.remove('marked');
+        loop();
+    }
+
+    function toggleToken(){
+        active.classList.toggle('current');
+        loop();
+    }
+
+
+    </script>
+
+
+{% endblock %}

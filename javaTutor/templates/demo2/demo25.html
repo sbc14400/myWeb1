@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+    <h1>console.group /  delete DOM object</h1>
+    <p>console.group을 사용해서 새로운 console group을 만들고 내용을 확인한다.(console창)</p>
+    <p>.parentNode.removeChild method를 사용해서 DOM 객체를 없앨수 있다.</p>
+    <p>그렇다면 추가하는 방법은 무엇인가 ?</p>
+
+    <!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active">JavaScript</li>
+    </ul>
+
+    <input type="button" id="deleteDOM" value="Delete Javascript Tag">
+
+    <script>
+        console.group('before');
+        var lis=document.getElementsByTagName('li');
+        for(var i=0;i<lis.length;i++){
+            console.log(lis[i]);
+        }
+        console.groupEnd();
+
+        var t2=document.getElementById('deleteDOM');
+        t2.addEventListener('click', function(event){
+
+            var tg=document.getElementById('active');
+            if(tg){
+                console.group('after');
+                tg.parentNode.removeChild(tg);
+                var lis=document.getElementsByTagName('li');
+                for(var i=0;i<lis.length;i++){
+                    console.log(lis[i]);
+                }
+                console.groupEnd();
+            } else {
+                alert('nothing to delete')
+            }
+        })
+
+
+    </script>
+
+{% endblock %}

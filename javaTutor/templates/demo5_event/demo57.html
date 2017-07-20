@@ -1,0 +1,90 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h2>Event : by jQuery ( **** )</h2>
+
+    <ul>
+        <li>$('...').on('event.type', function(event){... ...})</li>
+        <li>on을 편하게 쓰면 된다. 코드가 짧아진다. </li>
+        <li>Math.random() method : 프로그램 테스트시 유용하다.</li>
+        <li><a href="http://api.jquery.com/on/" >http://api.jquery.com/on : on API</a></li>
+        <li>.on( events [, selector ] [, data ], handler )</li>
+        <li>selector : filtering으로 원하는 tag만 선택할수 있다. : $('ul').on('click','a, li', function(event){ }</li>
+        <li>late binding : script가 먼저 나올때, 존재하는 element를('body') target으로 하면 나중의 element binding 가능</li>
+        <li>다중 바인딩
+            <ol>
+                <li>다중 type : $('...').on('event.type1 event.type2', function(e){... ...})</li>
+                <li>다중 인자 : $('...').on({'event.type1':function, 'event.type2':function})</li>
+                <li>chaining  : $('...').on('event.type1', function).on('event.type2, function)</li>
+            </ol>
+        </li>
+        <li>event 제거 (off API) : $('#..').off('event.type1 event.type2', var_func);</li>
+    </ul>
+
+    <hr>
+
+    <input type="button" id="pure" value="pure" />
+    <input type="button" id="id_jquery" value="jQuery" />
+
+    <ul>
+        <li><a href="#">HTML</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#">JavaScript</a></li>
+    </ul>
+
+    (id:target) <input type="text" id="target" />
+    <label for="target" id="status"></label>
+
+    <p>
+        <input type="button" id="remove" value="off event(remove target event)">
+        <input type="button" id="start" value="on event(start target event)">
+    </p>
+
+<hr>
+
+    <div id="texthere"></div>
+
+    <script>
+        // 순수하게 구현했을 때
+        var target = document.getElementById('pure');
+        if(target.addEventListener){
+            target.addEventListener('click', function(event){
+                $('#texthere').html('function attached by js.pure');
+            });
+        } else {
+            target.attachEvent('onclick', function(event){
+                $('#texthere').html('function attached by js.pure');
+            });
+        }
+
+        // jQuery를 사용했을 때
+        $('#id_jquery').on('click', function(event){
+            $('#texthere').html('function made by jQuery');
+        })
+
+        // selector
+        $('ul').on('click','a, li, div', function(event){
+            <!--alert(this.tagName);-->
+            $('#texthere').append(this.tagName + "  ");
+        })
+
+
+        // multiple binding
+
+        var handler=function(e){
+            $('#status').html(e.type+" " +Math.random());
+        }
+
+        $('#remove').on('click', function(e){
+            $('#status').html("");
+            $('#target').off('focus blur', handler);
+        })
+
+        $('#start').on('click', function(e){
+            $('#target').on('focus', handler).on('blur', handler);
+        })
+
+    </script>
+
+{% endblock %}

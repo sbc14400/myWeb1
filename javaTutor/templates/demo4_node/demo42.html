@@ -1,0 +1,135 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+
+    <h1>node API : self-function, callback function</h1>
+
+    <ul> <p style="font-weight:bold;color:blue"> self function (재귀함수)</p>
+        <li>함수안에서 자기자신을 다시 사용하는 기능</li>
+        <li>예제에서는 traverse 함수내에서 traverse 함수를 재사용하고 있다.</li>
+    </ul>
+
+    <ul> <p style="font-weight:bold;color:blue"> callback function</p>
+        <li>함수를 함수에 전달하는 기능</li>
+        <li>한개의 traverse함수를 사용해서 callback function에 따라 각기 다른 동작을 할수 있다.</li>
+        <li><a href="http://cbuilder.borlandforum.com/impboard/impboard.dll?action=read&db=bcb_tip&no=392">callback 설명</a></li>
+        <li><a href="https://ko.wikipedia.org/wiki/%EC%BD%9C%EB%B0%B1">callback 설명 : wiki</a></li>
+        <li><a href="https://m.blog.naver.com/PostView.nhn?blogId=29java&logNo=70189606145&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F">polymorphism</a></li>
+    </ul>
+    <ol style="font-weight:bold;color:blue">
+        <li>traverse(document.getElementById('start'), function(elem){
+                elem.style.color='red';
+            });</li>
+        <li>function traverse(target, callback){
+            if(target.nodeType === Node.ELEMENT_NODE){
+                if(target.nodeName === 'A'){
+                    callback(target);
+                }
+                var c =  target.childNodes;
+                for(var i=0; i<'c.length', i++){
+                    traverse(c[i], callback);
+                }
+            }
+        }</li>
+    </ol>
+
+    <hr>
+
+<div id="start">
+
+    <ul>
+        <li><a href="./532">html</a></li>
+        <li><a href="./533">css</a></li>
+        <li><a href="./534">JavaScript</a>
+            <ul>
+                <li><a href="./535">JavaScript Core</a></li>
+                <li><a href="./536">DOM</a></li>
+                <li><a href="./537">BOM</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr>
+    <input type="button" value="traverse_console" onclick="fun_traverse1()" />
+    <input type="button" value="traverse_color" onclick="fun_traverse2()" />
+    <input type="button" value="traverse_backcolor" onclick="fun_traverse3()" />
+    <input type="button" value="traverse_reset" onclick="fun_reset()" />
+    <input type="button" value="delay output(3sec)" onclick="fundelaycallback()" />
+    <hr>
+    <div id="output">show this before data ...</div>
+</div>
+
+    <script>
+
+        function traverse(target, callback){
+            if(target.nodeType === Node.ELEMENT_NODE){
+                if(target.nodeName === 'A'){
+                    callback(target);
+                }
+                var c =  target.childNodes;
+                for(var i=0; i<c.length; i++){
+                    traverse(c[i], callback);
+                }
+            }
+        }
+
+        function fun_traverse1(){
+            var msg="";
+            traverse(document.getElementById('start'), function(elem){
+                msg+=elem+"\r";
+                console.log(elem);
+            });
+            alert(msg);
+        }
+
+        function fun_traverse2(){
+            traverse(document.getElementById('start'), function(elem){
+                elem.style.color='red';
+            });
+        }
+
+        function fun_traverse3(){
+            traverse(document.getElementById('start'), function(elem){
+                if(elem.nodeName === 'A'){
+                    elem.style.backgroundColor='blue';
+                }
+            });
+        }
+
+        function fun_reset(){
+            traverse(document.getElementById('start'), function(elem){
+                if(elem.nodeName != 'INPUT'){
+                    elem.style.backgroundColor='white';
+                }
+                elem.style.color='black';
+            });
+        }
+
+
+        // callback function
+        function fundelaycallback(){
+            getData('http://fakedomain1234.com/userlist', writeData);
+        }
+
+        function writeData(myData) {
+            document.getElementById('output').innerHTML += myData;
+        }
+
+        // Define our main function
+        function getData(dataURI, callback) {
+
+            // We're just going to simulate a 3-second delay.
+            var timer = setTimeout(function () {
+                var dataArray = [123, 456, 789, 012, 345, 678];
+                callback(dataArray);
+            }, 3000);
+        }
+
+
+
+
+    </script>
+
+{% endblock %}
