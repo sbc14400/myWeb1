@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'javaTutor',
     'chartit',
     'highcharts',
-    'bootstrap3',
 ]
 
 MIDDLEWARE = [

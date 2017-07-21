@@ -4,7 +4,7 @@ from django.utils import timezone
 from .models import Post, Device, PadInfo
 from .forms import PostForm, DeviceForm
 
-from django_datatables_view.base_datatable_view import BaseDatatableView
+# from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
 from django.core import  serializers
 import datetime
@@ -15,19 +15,19 @@ from chartit import DataPool, Chart
 from highcharts.views import *
 
 
-class TableDevice(BaseDatatableView):
-    model = Device
-    columns = ['DeviceID', 'CustomerProduct', 'Tester', 'NoPara', 'ProductType', 'InputDate']
-    order_columns = ['DeviceID', 'InputData']
-    max_display_length = 500
-
-
-    def render_column(self, row, column):
-
-        if column == 'user':
-            return '{0} {1}'.format(row.customer_firstname, row.customer_lastname)
-        else:
-            return super(TableDevice, self).render_column(row, column)
+# class TableDevice(BaseDatatableView):
+#     model = Device
+#     columns = ['DeviceID', 'CustomerProduct', 'Tester', 'NoPara', 'ProductType', 'InputDate']
+#     order_columns = ['DeviceID', 'InputData']
+#     max_display_length = 500
+#
+#
+#     def render_column(self, row, column):
+#
+#         if column == 'user':
+#             return '{0} {1}'.format(row.customer_firstname, row.customer_lastname)
+#         else:
+#             return super(TableDevice, self).render_column(row, column)
 
         # return render(request, '/', {'devices': devices})
 
