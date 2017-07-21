@@ -109,7 +109,6 @@ def javatutor_demo62(request, template='demo6_Ajax JSON/demo62.html'):
 def javatutor_git_anywhere(request, template='djangoNote/git_pythonanywhere.html'):
     return render(request, template)
 
-
 def mygetview(request):
     if request.method == 'GET':
         print("**get**")
