@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^javaTutor/demo61/$', views.javatutor_demo61, name='demo61'),
     url(r'^javaTutor/demo62/$', views.javatutor_demo62, name='demo62'),
 
+    url(r'^javaTutor/git_anywhere/$', views.javatutor_git_anywhere, name='git_anywhere'),
+
     url(r'^ajx/mygetview', views.mygetview, name='mygetview'),
     url(r'^ajx/mypostview', views.mypostview, name='mypostview'),
     url(r'^ajx/myajaxview', views.myajaxview, name='myajaxview'),
