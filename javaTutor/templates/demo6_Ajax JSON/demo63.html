@@ -1,0 +1,79 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <style>
+      #hereTable td { border:solid 1px }
+  </style>
+
+
+<h1> amst:Blade Pin Map</h1>
+<ul> <p style="font-weight:bold;font-size:20px;color:blue">Procedure</p>
+    <li>X,Y 배열의 개수를 입력받는다. (간단하게 textbox로)</li>
+    <li>X,Y 배열만큼의 table을 작성한다.</li>
+    <li>table의 td마다 button을 같은 classname(classPin)으로 작성한다.</li>
+    <li>불량코드를 선택할수 있도록 dropdown box를 작성하고, 4개정도를 입력한다. : value값을 colorPin으로 활용</li>
+    <li style="font-weight:bold;color:blue">$('#makeTable').on('click', function(){ ... } : jQuery event </li>
+    <li style="font-weight:bold;color:blue">$('.classPin').on('click', function(){ ... } : .classPin객체에 event를 부여</li>
+    <li style="font-weight:bold;color:red">event내에 event부여방식</li>
+
+
+</ul>
+
+<hr>
+
+    X * Y
+    <input type="text" id="Xcount" value="5" style="width:50px;text-align:center;">
+     *
+    <input type="text" id="Ycount" value="5" style="width:50px;text-align:center;">
+    <input type="button" id="makeTable" value="map구성" >
+
+    <p style="font-size:13px;padding-top:20px">Color
+        <input type="radio" class="optColor" name="gender" style="margin-left:10px" value="white" checked="checked" > reset
+        <input type="radio" class="optColor" name="gender" style="margin-left:10px" value="blue" > blue
+        <input type="radio" class="optColor" name="gender" style="margin-left:5px" value="red" > red
+        <input type="radio" class="optColor" name="gender" style="margin-left:5px" value="yellow" > yellow
+        <input type="radio" class="optColor" name="gender" style="margin-left:5px" value="green" > green
+    </p>
+
+<hr>
+    <div id="hereTable"></div>
+
+
+<script>
+
+    $('#makeTable').on('click', function(){
+
+        // make table in hereTable
+        // (due)check if numeric cntX, cntY
+        var cntX=parseInt($('#Xcount').val());
+        var cntY=parseInt($('#Ycount').val());
+        var noPin=0;
+
+        var html="<table style='border:solid'>";
+        for(var j=0;j<cntY;j++){
+            html += "<tr>";
+            for(var i=0;i<cntX;i++){
+                html += "<td>";
+                noPin += 1;
+                html += "<input type='button' class='classPin' value="  + noPin + " style='background-color:white'>"
+                html += "</td>";
+            }
+            html += "</tr>";
+        }
+        html += "</table>";
+
+        hereTable.innerHTML=html;
+
+        // add event to classpin
+        $('.classPin').on('click', function(){
+            colorPin = document.querySelector('input[name=gender]:checked').value;
+            $( this ).css({
+                "background-color": colorPin,
+            });
+        })
+    })
+
+
+</script>
+
+{% endblock %}
