@@ -15,53 +15,9 @@ from chartit import DataPool, Chart
 from highcharts.views import *
 
 
-# class TableDevice(BaseDatatableView):
-#     model = Device
-#     columns = ['DeviceID', 'CustomerProduct', 'Tester', 'NoPara', 'ProductType', 'InputDate']
-#     order_columns = ['DeviceID', 'InputData']
-#     max_display_length = 500
-#
-#
-#     def render_column(self, row, column):
-#
-#         if column == 'user':
-#             return '{0} {1}'.format(row.customer_firstname, row.customer_lastname)
-#         else:
-#             return super(TableDevice, self).render_column(row, column)
-
-        # return render(request, '/', {'devices': devices})
-
-
-    # def filter_queryset(self, qs):
-    #     # use parameters passed in GET request to filter queryset
-    #
-    #     # simple example:
-    #     search = self.request.GET.get(u'search[value]', None)
-    #     if search:
-    #         qs = qs.filter(name__istartswith=search)
-    #
-    #     # more advanced example using extra parameters
-    #     filter_customer = self.request.GET.get(u'customer', None)
-    #
-    #     if filter_customer:
-    #         customer_parts = filter_customer.split(' ')
-    #         qs_params = None
-    #         for part in customer_parts:
-    #             q = Q(customer_firstname__istartswith=part) | Q(customer_lastname__istartswith=part)
-    #             qs_params = qs_params | q if qs_params else q
-    #         qs = qs.filter(qs_params)
-    #     return qs
-
 def post_devicelist(request):
     devices = Device.objects.order_by('-pk')
     return render(request, 'blog/post_devicelist.html', {'devices': devices})
-    # device=sqlite3.connect(database='db.sqlite3')
-    # cursor=device.cursor()
-    # cursor.execute('SELECT DeviceID from amst_Device')
-    # devices=[row[0] for row in cursor.fetchall()]
-    # return render(request, 'blog/post_list.html',{'posts':devices})
-
-
 
 def post_devicedetail(request, pk):
     device=get_object_or_404(Device, pk=pk)
@@ -82,17 +38,6 @@ def ajax_devicedetail(request):
             return JsonResponse(device, safe=False)
     return render(request)
 
-            # print(data)
-            # device_list = Device.objects.all()
-
-            # device_list = get_object_or_404(Device, pk=data)
-            # print(device_list.DeviceID)
-            # print(device_list.ProductType)
-
-            # return HttpResponse(device, content_type='application/json')
-            # return JsonResponse(device)
-            # str = "<html><b> you sent an ajax post request </b> <br> returned data: %s</html>" % data
-            # return HttpResponse(astr)
 
 
 def ajax_paddetail(request):

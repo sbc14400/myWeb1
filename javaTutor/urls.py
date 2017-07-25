@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 #from .views import ThingList, ThingCreate, ThingDetail, ThingUpdate, ThingDelete
 from . import views
 
@@ -34,6 +36,7 @@ urlpatterns = [
     url(r'^javaTutor/demo55/$', views.javatutor_demo55, name='demo55'),
     url(r'^javaTutor/demo56/$', views.javatutor_demo56, name='demo56'),
     url(r'^javaTutor/demo57/$', views.javatutor_demo57, name='demo57'),
+    url(r'^javaTutor/demo58/$', views.javatutor_demo58, name='demo58'),
     url(r'^javaTutor/demo61/$', views.javatutor_demo61, name='demo61'),
     url(r'^javaTutor/demo62/$', views.javatutor_demo62, name='demo62'),
     url(r'^javaTutor/demo63/$', views.javatutor_demo63, name='demo63'),
@@ -44,4 +47,4 @@ urlpatterns = [
     url(r'^ajx/myajaxview', views.myajaxview, name='myajaxview'),
     url(r'^ajx/myajaxformview', views.myajaxformview, name='myajaxformview'),
 
-]
+] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

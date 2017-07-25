@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <style>
+    #div1, #div2, #div3 {
+        float: left;
+        width: 120px;
+        height: 50px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid black;
+    }
+    </style>
+
+    <h2>Event : Drag and Drop</h2>
+
+   <ul> notes
+        <li>url.py에 urlpatterns 하단에 +static 부부분을 추가해준다.</li>
+        <li>load static을 실행한다.</li>
+       <li> img src에 static을 활용해서 경로를 지정한다. </li>
+   </ul>
+    <ul> web sites
+        <li><a href="https://www.w3schools.com/html/html5_draganddrop.asp" >Drag and drop : w3 API</a></li>
+        <li><a href="https://docs.djangoproject.com/en/1.11/howto/static-files/" >Managing static files</a></li>
+    </ul>
+
+    <ul> script
+        <li>function allowDrop(ev) { ev.preventDefault(); }</li>
+        <li>function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }</li>
+        <li>function drop(ev) { ... }</li>
+    </ul>
+    <hr>
+
+    <p>Drag the image back and forth between the two div elements.</p>
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+      {% load static %} <img src="{% static "images/img_w3slogo.gif" %}" alt="Hi!" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+        <!--<img src="../static/images/img_w3slogo.gif" alt="Hi!" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">-->
+    </div>
+    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+
+<hr>
+
+    <div id="texthere"></div>
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+{% endblock %}
