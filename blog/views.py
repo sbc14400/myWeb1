@@ -23,6 +23,15 @@ def post_devicedetail(request, pk):
     device=get_object_or_404(Device, pk=pk)
     return render(request, 'blog/post_devicedetail.html', {'device': device})
 
+
+def ajax_del_Device(request):
+    data = request.GET['pkDevice']
+    device = Device.objects.get(id=data)
+    if (device.delete()):
+        return HttpResponse(True)
+    return HttpResponse(False)
+
+
 def ajax_devicedetail(request):
 
     if request.method == 'POST':
@@ -30,7 +39,6 @@ def ajax_devicedetail(request):
             data = request.POST['pkDevice']
             device_list = Device.objects.filter(id=data)
             device = serializers.serialize("json", device_list)
-            # print(device)
 
             # result = json.parse(device)
             # print(result[0].fields.DeviceID)
@@ -48,14 +56,12 @@ def ajax_paddetail(request):
             pkDevice = request.POST['DeviceID']
             bolnc = request.POST['bolnc']
 
-            # print(bolnc)
             if bolnc == "true":
                 device_list = PadInfo.objects.filter(DeviceID=pkDevice)
             else:
                 device_list = PadInfo.objects.filter(DeviceID=pkDevice).exclude(Function='nc')
 
             device = serializers.serialize("json", device_list)
-            # print(device)
 
             # result = json.parse(device)
             # print(result[0].fields.DeviceID)
@@ -63,15 +69,8 @@ def ajax_paddetail(request):
             return JsonResponse(device, safe=False)
     return render(request)
 
-            # print(data)
-            # device_list = Device.objects.all()
-
-            # device_list = get_object_or_404(Device, pk=data)
-            # print(device_list.DeviceID)
-            # print(device_list.ProductType)
 
             # return HttpResponse(device, content_type='application/json')
-            # return JsonResponse(device)
             # str = "<html><b> you sent an ajax post request </b> <br> returned data: %s</html>" % data
             # return HttpResponse(astr)
 
@@ -122,7 +121,7 @@ def ajax_chart_pad(request):
     # Step 2: Create the Chart object
 
     # Step 3: Send the chart object to the template.
-    print(cht.to_json())
+    # print(cht.to_json())
     return JsonResponse(cht.to_json(), safe=False)
     # return render_to_response({'padchart': cht})
 

@@ -100,7 +100,8 @@ def javatutor_demo56(request, template='demo5_event/demo56.html'):
 def javatutor_demo57(request, template='demo5_event/demo57.html'):
     return render(request, template)
 
-def javatutor_demo58(request, template='demo5_event/demo58.html'):
+
+def javatutor_DragDrop1(request, template='demo5_event2/DragDrop1.html'):
     return render(request, template)
 
 def javatutor_demo61(request, template='demo6_Ajax JSON/demo61.html'):

@@ -46,6 +46,7 @@ class Device(models.Model):
         return self.DeviceID
 
 
+
 class PadInfo(models.Model):
     DeviceID = models.CharField(max_length=10, primary_key=True)
     RevIF = models.CharField(max_length=10, primary_key=True)

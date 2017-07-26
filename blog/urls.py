@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'^post/device/newDevice/$', views.post_devicenew, name='post_devicenew'),
     url(r'^post/device/(?P<pk>\d+)/edit/$', views.post_deviceedit, name='post_deviceedit'),
 
+    # url(r'^post/device/(?P<pk>\d+)/del/$', views.post_del_Device, name='post_deviceDel'),
+    url(r'^post/ajax_delDevice', views.ajax_del_Device, name='ajax_del_device'),
+
     url(r'^post/ajax_devicedetail', views.ajax_devicedetail, name='ajax_devicedetail'),
     url(r'^post/ajax_paddetail', views.ajax_paddetail, name='ajax_paddetail'),
     url(r'^post/ajax_chart_pad', views.ajax_chart_pad, name='ajax_chart_pad'),
